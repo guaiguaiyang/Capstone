@@ -1,7 +1,9 @@
-## Problem Statement #1
+### Problem Statement #1
 One Easy Meal is a website that helps busy adies/professionals with meal prep and planning
 
-## MVP Feature Set
+### API 
+https://spoonacular.com/food-api/docs#Ingredient-Search
+### MVP Feature Set
 
 1.  As a user visiting our website One Easy Meal, the will be able to see some featured dishes and a search bar on our website's homepage
     - user can click the picture and enter dish details for the recipe
@@ -16,9 +18,22 @@ One Easy Meal is a website that helps busy adies/professionals with meal prep an
 5.  A user can mark a dish favorite and have access to the favorites list
     - the user can visit the favorites list and see all favorites marked
 
-## Wireframes
-<img scr="logic.png">
-<img scr="databaseRelationship.png">
+### Wireframes
+<img src="logicflow.png">
+<img src="relationship.png"/>
+
+### app/routes.py
+The endpoints to be defined here
+The file already imports:
+- Blueprint
+- request
+- jsonify
+- make_response
+- db
+### app/routes.py
+    This project already includes app/models/user.py and app/models/menu.py, to anticipate the models User and Menu.
+
+    Both files already import db, for convenience!
 
 ### Potential Additional Features
 
@@ -29,7 +44,7 @@ One Easy Meal is a website that helps busy adies/professionals with meal prep an
 5. Collaborate with other brands and stores to make our website a one stop shop with checkout and e-commerce function
 6. Selling subscription services to members that will send them daily recipe inspirations and help members make diet plans
 
-## Draft Technology Choices
+### Draft Technology Choices
 
 - Front-end: Javascript, React, CSS
 - APIs: Seattle Parks API: Spoonacular API (or TheMealDB and Zestful for additional features) 
