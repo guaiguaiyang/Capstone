@@ -16,6 +16,9 @@ One Easy Meal is a website that helps busy adies/professionals with meal prep an
 5.  A user can mark a dish favorite and have access to the favorites list
     - the user can visit the favorites list and see all favorites marked
 
+## Wireframes
+<img scr="logic.png">
+<img scr="databaseRelationship.png">
 
 ### Potential Additional Features
 
