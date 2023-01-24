@@ -1,4 +1,4 @@
-### Problem Statement #1
+### Problem Statement
 One Easy Meal is a website that helps busy adies/professionals with meal prep and planning
 
 ### API 
@@ -30,7 +30,7 @@ The file already imports:
 - jsonify
 - make_response
 - db
-### app/routes.py
+### app/models
     This project already includes app/models/user.py and app/models/menu.py, to anticipate the models User and Menu.
 
     Both files already import db, for convenience!
