@@ -1,6 +1,6 @@
 from flask import Blueprint, request, make_response, jsonify, abort
 from app import db
-from app.models.user import UserAccount
+from app.models.userAccount import UserAccounts
 
 
 capstone_bp = Blueprint("capstone", __name__, url_prefix="/users")
@@ -11,7 +11,7 @@ def create_user():
     request_body = request.get_json()
     if "email" not in request_body or "password" not in request_body:
         abort(make_response({"error":"invalid data need input email or password"},400))
-    new_user = UserAccount(
+    new_user = UserAccounts(
         name = request_body["name"],
         email = request_body["email"],
         password = request_body["password"],
@@ -27,7 +27,7 @@ def create_user():
 # GET read all user info
 @capstone_bp.route("", methods = ["GET"])
 def read_all_user():
-    users = UserAccount.query.all()
+    users = UserAccounts.query.all()
     users_response = []
     for user in users:
         users_response.append({
@@ -41,7 +41,7 @@ def read_all_user():
 @capstone_bp.route("/login", methods = ["POST"])
 def login():
     request_body = request.get_json()
-    user = UserAccount.query.filter_by(email = request_body["email"]).first()
+    user = UserAccounts.query.filter_by(email = request_body["email"]).first()
     if not user: 
         return make_response({ "message": "User not found"}, 404)
     if user.password == request_body["password"]:
