@@ -24,6 +24,7 @@ def create_user():
         "name":new_user.name,
         "email":new_user.email
     },201)
+
 # GET read all user info
 @capstone_bp.route("", methods = ["GET"])
 def read_all_user():
@@ -37,6 +38,7 @@ def read_all_user():
             "password":user.password
         })
     return jsonify(users_response)
+
 #login
 @capstone_bp.route("/login", methods = ["POST"])
 def login():
@@ -51,6 +53,23 @@ def login():
         })
     else:
         return make_response({ "message": "Password incorrect" }, 401)
-        
+# chheck valid ID
+def check_valid_id(user_id):
+    try:
+        user_id = int(user_id)
+    except:
+        abort(make_response({"message": 'Invalid user id'}, 400))
 
-    
+    user = UserAccount.query.get(user_id)
+    if not user:
+        return abort(make_response({"message": 'User Not Found'}, 404))
+    return user
+
+# Get a specific user   
+@capstone_bp.route("/<user_id>", methods = ["GET"])
+def get_user(user_id):
+    user = check_valid_id(user_id)
+    return make_response(
+        {"name": user.name,
+         "email": user.email}, 
+        201)
