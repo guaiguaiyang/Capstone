@@ -1,8 +1,6 @@
 from flask import Blueprint, request, make_response, jsonify, abort
 from app import db
 from app.models.user import UserAccount
-from flask import Flask
-
 
 
 capstone_bp = Blueprint("capstone", __name__, url_prefix="/users")
@@ -54,5 +52,5 @@ def login():
     else:
         return make_response({ "message": "Password incorrect" }, 401)
         
-    
+
     
