@@ -15,7 +15,8 @@ def create_app():
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://postgres:postgres@localhost:5432/capstone_database"
 
-    from app.models.userAccount import UserAccount
+    from app.models.account import Account
+    from app.models.favorite import Favorite
     
     db.init_app(app)
     migrate.init_app(app, db)
