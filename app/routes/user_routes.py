@@ -2,10 +2,10 @@ from flask import Blueprint, request, make_response, jsonify, abort
 from app import db
 from app.models.account import Account
 
-capstone_bp = Blueprint("capstone", __name__, url_prefix="/users")
+account_bp = Blueprint("capstone", __name__, url_prefix="/users")
 
 # POST create user info 
-@capstone_bp.route("/signup", methods = ["POST"])
+@account_bp.route("/signup", methods = ["POST"])
 def create_user():
     request_body = request.get_json()
     if "email" not in request_body or "password" not in request_body:
@@ -25,7 +25,7 @@ def create_user():
     },201)
 
 # GET read all user info
-@capstone_bp.route("", methods = ["GET"])
+@account_bp.route("", methods = ["GET"])
 def read_all_user():
     users = Account.query.all()
     users_response = []
@@ -39,7 +39,7 @@ def read_all_user():
     return jsonify(users_response)
 
 #login
-@capstone_bp.route("/login", methods = ["POST"])
+@account_bp.route("/login", methods = ["POST"])
 def login():
     request_body = request.get_json()
     user = Account.query.filter_by(email = request_body["email"]).first()
@@ -66,7 +66,7 @@ def verify_user(user_id):
     return user
 
 # Get a specific user   
-@capstone_bp.route("/<user_id>", methods = ["GET"])
+@account_bp.route("/<user_id>", methods = ["GET"])
 def get_user(user_id):
     user = verify_user(user_id)
     return make_response(
