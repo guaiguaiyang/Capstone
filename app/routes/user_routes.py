@@ -2,7 +2,7 @@ from flask import Blueprint, request, make_response, jsonify, abort
 from app import db
 from app.models.account import Account
 
-account_bp = Blueprint("capstone", __name__, url_prefix="/")
+account_bp = Blueprint("capstone", __name__, url_prefix="/user")
 
 # POST create user info 
 @account_bp.route("/signup", methods = ["POST"])
