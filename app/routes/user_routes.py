@@ -53,6 +53,17 @@ def login():
         })
     else:
         return make_response({ "message": "Password incorrect" }, 401)
-        
+# get a specific user
+@capstone_bp.route("/<user_id>", methods = ["GET"])
+def read_one_user(user_id):
+    user = UserAccount.query.get(user_id)
+    if user is None:
+        return make_response("", 404)
+    return {
+        "id": user.user_id,
+        "name": user.name,
+        "email":user.email,
+        "password":user.password
+    }
     
     
