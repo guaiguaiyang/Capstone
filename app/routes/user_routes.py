@@ -3,21 +3,37 @@ from app import db
 from app.models.account import Account
 
 account_bp = Blueprint("capstone", __name__, url_prefix="/user")
+# check valid ID
+def verify_user(user_id):
+    try:
+        user_id = int(user_id)
+    except:
+        abort(make_response({"message": 'Invalid user id'}, 400))
 
-# POST create user info 
+    user = Account.query.get(user_id)
+    if not user:
+        return abort(make_response({"message": 'User Not Found'}, 404))
+    return user
+# POST create user  
 @account_bp.route("/signup", methods = ["POST"])
 def create_user():
     request_body = request.get_json()
     if "email" not in request_body or "password" not in request_body:
         abort(make_response({"error":"invalid data need input email or password"},400))
-    new_user = Account(
-        name = request_body["name"],
-        email = request_body["email"],
-        password = request_body["password"],
-    )
-    db.session.add(new_user)
-    db.session.commit()
-    
+    email = Account.query.filter_by(email = request_body["email"]).first()
+    print(email)
+    if email:
+        abort(make_response({ "message": "user already exist" }, 409))
+        db.session.rollback() 
+    else:
+        new_user = Account(
+            name = request_body["name"],
+            email = request_body["email"],
+            password = request_body["password"],
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        
     return make_response({
         "id":new_user.user_id,
         "name":new_user.name,
@@ -53,23 +69,15 @@ def login():
     else:
         return make_response({ "message": "Password incorrect" }, 401)
     
-# check valid ID
-def verify_user(user_id):
-    try:
-        user_id = int(user_id)
-    except:
-        abort(make_response({"message": 'Invalid user id'}, 400))
-
-    user = Account.query.get(user_id)
-    if not user:
-        return abort(make_response({"message": 'User Not Found'}, 404))
-    return user
-
+    
 # Get a specific user   
 @account_bp.route("/<user_id>", methods = ["GET"])
-def get_user(user_id):
+def get_one_user(user_id):
     user = verify_user(user_id)
-    return make_response(
-        {"name": user.name,
-         "email": user.email}, 
-        201)
+    if user:
+        return make_response(
+            {"user":{"name": user.name,
+            "email": user.email}},
+            201)
+    else: 
+        return make_response({ "message": "user not found" }, 404)
