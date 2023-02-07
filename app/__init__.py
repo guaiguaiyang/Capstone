@@ -24,7 +24,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     
-    from .routes.user_routes import account_bp
+    from .routes.account_routes import account_bp
     app.register_blueprint(account_bp)
     from .routes.favorite_routes import favorite_bp
     app.register_blueprint(favorite_bp)
