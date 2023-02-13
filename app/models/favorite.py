@@ -4,6 +4,7 @@ class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String)
     image = db.Column(db.String)
+    recipe_id = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('account.user_id'))
     account = db.relationship("Account", back_populates="favorites")
     

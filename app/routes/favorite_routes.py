@@ -12,11 +12,12 @@ def create_favorit(user_id):
     new_favorit = Favorite(
         title = request_body["title"],
         image = request_body["image"],
+        recipe_id = request_body["recipe_id"],
         user_id = user_id
     )
     db.session.add(new_favorit)
     db.session.commit()
-    return make_response(jsonify({"title":new_favorit.title,"user_id":new_favorit.user_id}),201)
+    return make_response(jsonify({"title":new_favorit.title,"user_id":new_favorit.user_id,"recipe_id":new_favorit.recipe_id}),201)
 @favorite_bp.route("/<fav_id>", methods=["DELETE"])
 def delete_fav(fav_id):
     fav = Favorite.query.get(fav_id)

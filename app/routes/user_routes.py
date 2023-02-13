@@ -93,7 +93,8 @@ def get_favorits(user_id):
               "title": favorit.title,
               "image": favorit.image,
               "user_id":favorit.user_id,
-              "favorit_id":favorit.id
+              "id":favorit.id,
+              "recipe_id":favorit.recipe_id
             }
         )
     return jsonify(favorits_response)
