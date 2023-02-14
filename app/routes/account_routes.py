@@ -38,6 +38,7 @@ def create_user():
         "id":new_user.user_id,
         "name":new_user.name,
         "email":new_user.email
+        
     },201)
 
 # GET read all user info
@@ -81,3 +82,20 @@ def get_one_user(user_id):
             201)
     else: 
         return make_response({ "message": "user not found" }, 404)
+# Get all favorits
+@account_bp.route("/<user_id>/favorites", methods=["GET"])
+def get_favorits(user_id):
+    user = Account.query.get(user_id)
+    favorits_response = []
+    for favorit in user.favorites:
+        favorits_response.append(
+            {
+              "title": favorit.title,
+              "image": favorit.image,
+              "user_id":favorit.user_id,
+              "id":favorit.id,
+              "recipe_id":favorit.recipe_id
+            }
+        )
+    return jsonify(favorits_response)
+
